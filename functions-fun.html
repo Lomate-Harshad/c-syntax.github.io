@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Functions in C | C-Syntax</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdcc0",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "on-surface-variant": "#434653",
+                        "on-primary": "#ffffff",
+                        "background": "#fbf9f8",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "tertiary": "#633600",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary-container": "#ffc38e",
+                        "on-primary-container": "#beceff",
+                        "secondary-fixed": "#e4e2e1",
+                        "primary": "#003b93",
+                        "on-tertiary-fixed": "#2d1600",
+                        "surface-variant": "#e4e2e1",
+                        "inverse-primary": "#b1c5ff",
+                        "secondary": "#5f5e5e",
+                        "inverse-surface": "#303030",
+                        "on-surface": "#1b1c1c",
+                        "surface": "#fbf9f8",
+                        "primary-container": "#0051c3",
+                        "on-secondary-container": "#656464",
+                        "surface-tint": "#1357c9",
+                        "on-primary-fixed": "#001947",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-container": "#844a00",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#fbf9f8",
+                        "surface-container-high": "#eae8e7",
+                        "tertiary-fixed-dim": "#ffb876",
+                        "on-secondary-fixed-variant": "#474747",
+                        "surface-dim": "#dcd9d9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#e4e2e1",
+                        "outline": "#737785",
+                        "on-primary-fixed-variant": "#00419f",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "outline-variant": "#c3c6d6",
+                        "on-tertiary-fixed-variant": "#6b3b00",
+                        "surface-container-highest": "#e4e2e1"
+                    },
+                    fontFamily: {
+                        "headline": ["Newsreader", "serif"],
+                        "body": ["Newsreader", "serif"],
+                        "label": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            background-color: #fbf9f8;
+            color: #1b1c1c;
+            -webkit-font-smoothing: antialiased;
+        }
+        .article-content p {
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+        .code-block {
+            background-color: #303030;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2.5rem 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #dae2ff;
+        }
+        .syntax-keyword { color: #b1c5ff; }
+        .syntax-string { color: #ffdcc0; }
+        .syntax-comment { color: #737785; font-style: italic; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body selection:bg-primary-container selection:text-white">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 dark:bg-stone-900/80 backdrop-blur-md shadow-[0_8px_24px_rgba(0,59,147,0.06)]">
+  <!-- Added 'relative' here -->
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center relative">
+    
+    <!-- Logo Section -->
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-[#0051C3] text-2xl">terminal</span>
+      <span class="text-2xl font-bold text-[#1b1c1c] dark:text-[#fbf9f8] font-['Newsreader'] italic tracking-tight">C-Syntax</span>
+    </div>
+
+    <!-- Navigation (Centered via absolute positioning) -->
+    <nav class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-8">
+        <a class="text-[#434653] dark:text-stone-400 font-['Space_Grotesk'] text-sm uppercase tracking-widest hover:text-[#0051C3] transition-colors duration-300" href="basic-c-programming.html">Basics</a>
+        <a class="text-[#434653] dark:text-stone-400 font-['Space_Grotesk'] text-sm uppercase tracking-widest hover:text-[#0051C3] transition-colors duration-300" href="control-structures.html">Control Structures</a>
+        <a class="text-[#434653] dark:text-stone-400 font-['Space_Grotesk'] text-sm uppercase tracking-widest hover:text-[#0051C3] transition-colors duration-300" href="array-structures.html">Arrays</a>
+        <a class="text-[#0051C3] dark:text-[#4d94ff] border-b-2 border-[#0051C3] font-['Space_Grotesk'] text-sm uppercase tracking-widest py-1" href="#">Functions</a>
+    </nav>
+    
+  </div>
+</header>
+
+<main class="pt-32 pb-24">
+<!-- Article Header -->
+<article class="max-w-3xl mx-auto px-6">
+<header class="mb-16">
+<div class="flex items-center gap-3 mb-6">
+<span class="font-label text-xs uppercase tracking-[0.2em] text-primary font-bold bg-primary-fixed px-3 py-1 rounded-full">Engineering Journal</span>
+<span class="font-label text-xs text-on-surface-variant">March 25, 2026</span>
+</div>
+<h1 class="text-5xl md:text-6xl font-headline font-bold text-on-background leading-[1.1] mb-6 tracking-tight">
+                    Functions in C
+                </h1>
+<p class="text-2xl font-body italic text-on-surface-variant leading-snug">
+                    Organizing your program into small, self-contained tasks.
+                </p>
+<div class="mt-10 flex items-center gap-4 border-y border-outline-variant/15 py-6">
+<div>
+<p class="font-label font-bold text-xl">Harshad Lomate</p>
+<p class="font-label text-xs text-on-surface-variant">Team Member</p>
+</div>
+</div>
+</header>
+<!-- Hero Image -->
+<figure class="mb-16 -mx-6 md:-mx-24">
+<img alt="Technical Abstract" class="w-full aspect-[21/9] object-cover rounded-xl shadow-2xl" data-alt="High-tech server room background with glowing blue data cables and circuit board patterns in sharp focus and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu2Z0YhvNwsncE_bm3QeN_F_nO_8KmcvoEkQIXk5ghBE09GyzkE6AZWiQRAAJJyCGJMNB3pGRJx0SIeXy2aMF-HJrI3_pXahZMvTnyeu0m-mWqie1mPnZPnxjSF6tSl7yY13aMYU-5PJ6nnC2FZL-lGoZs-gihkScKtk9s3He6yeQpl0Iw1Un76-XzwIS91wWV0xuM_S_pf5xYCAdDacqvKJRgGje3rheIzutOqD4Zegt2HAHVe6-QvUkmKsblfpR7PnkXaQYBnOQ"/>
+<figcaption class="mt-4 px-6 md:px-24 text-center font-label text-xs text-on-surface-variant italic">
+                    The architecture of memory: A physical representation of digital storage.
+                </figcaption>
+</figure>
+<!-- Main Content -->
+  <div class="article-content font-body text-on-surface">
+            <p>
+                As your programs grow larger, putting everything inside the <code class="bg-surface-container px-1 rounded font-mono text-primary text-base">main()</code> function makes the code difficult to debug and maintain. Functions allow us to group code into small, self-contained modules that perform specific tasks.
+            </p>
+
+            <h2 class="text-3xl font-headline font-bold mt-12 mb-6">The Three Pillars of a Function</h2>
+            <p>
+                To use a function in C, you must follow these three steps:
+            </p>
+            <ul class="list-disc ml-8 mb-8 text-xl space-y-2">
+                <li><b>Function Declaration:</b> Telling the compiler about the function’s name, return type, and parameters.</li>
+                <li><b>Function Call:</b> Executing the function from <code class="text-primary font-mono text-xs">main()</code> or another function.</li>
+                <li><b>Function Definition:</b> The actual body of code that runs when the function is called.</li>
+            </ul>
+
+            <div class="code-block">
+<span class="syntax-keyword">int</span> add(<span class="syntax-keyword">int</span> a, <span class="syntax-keyword">int</span> b); <span class="syntax-comment">// Declaration</span>
+
+<span class="syntax-keyword">int</span> main() {
+    <span class="syntax-keyword">int</span> result = add(<span class="syntax-string">10, 20</span>); <span class="syntax-comment">// Call</span>
+    printf(<span class="syntax-string">"Sum: %d"</span>, result);
+    <span class="syntax-keyword">return</span> <span class="syntax-string">0</span>;
+}
+
+<span class="syntax-keyword">int</span> add(<span class="syntax-keyword">int</span> a, <span class="syntax-keyword">int</span> b) { <span class="syntax-comment">// Definition</span>
+    <span class="syntax-keyword">return</span> a + b;
+}
+            </div>
+
+            
+
+            <h2 class="text-3xl font-headline font-bold mt-12 mb-6">Call by Value vs. Call by Reference</h2>
+            <p>
+                This is a classic MSBTE exam question. It defines how data is passed into functions:
+            </p>
+            <ul class="list-decimal ml-8 mb-8 text-xl space-y-4">
+                <li><b>Call by Value:</b> A <i>copy</i> of the actual parameter is passed. Changes made inside the function do not affect the original variable.</li>
+                <li><b>Call by Reference:</b> The <i>address</i> of the variable is passed using pointers. Changes made inside the function directly affect the original variable.</li>
+            </ul>
+
+            <h2 class="text-3xl font-headline font-bold mt-12 mb-6">Benefits of Functions</h2>
+            <p>
+                Why do we use them? 
+            </p>
+            <ul class="list-disc ml-8 mb-8 text-xl space-y-2">
+                <li><b>Reusability:</b> Write once, use many times.</li>
+                <li><b>Readability:</b> Makes the program logic easy to follow.</li>
+                <li><b>Easier Debugging:</b> Errors can be isolated to a single function.</li>
+            </ul>
+
+            <blockquote class="border-l-4 border-primary pl-8 my-12 italic text-2xl text-on-surface-variant font-body">
+                "Functions are like mini-programs. Mastering them is the first step toward becoming a Software Architect."
+            </blockquote>
+
+            <p>
+                This concludes our MSBTE Programming in C series. By mastering basics, control structures, arrays, and functions, you are now equipped to handle any problem in your PIC practicals and theory exams!
+            </p>
+        </div>
+<!-- Footer Share Actions -->
+<footer class="mt-20 pt-10 border-t border-outline-variant/15">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Share this article</span>
+
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-label text-xs rounded">#LowLevel</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-label text-xs rounded">#CProgramming</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant font-label text-xs rounded">#CSFoundations</span>
+</div>
+</div>
+</footer>
+</article>
+</main>
+<!-- Global Footer -->
+<footer class="bg-[#fbf9f8] dark:bg-stone-950 border-t-[1px] border-[#c3c6d6]/15">
+<div class="max-w-7xl mx-auto py-12 px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="text-lg font-['Newsreader'] font-bold text-[#1b1c1c] dark:text-white">C-Syntax</span>
+<p class="font-['Space_Grotesk'] text-sm antialiased text-[#434653] dark:text-stone-500">© 2026 C-Syntax Editorial. Engineered for clarity.</p>
+</div>
+
+
+</body></html>
